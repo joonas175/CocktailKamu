@@ -1,5 +1,7 @@
 
-import express from "express";
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
 
 const port = 80;
 
@@ -7,11 +9,19 @@ const app = express();
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.status(501).send({
-        status: 501,
-        message: "Not yet implemented!"
-    })
-})
+var normalizedPath = path.join(__dirname, "controller");
 
-const server = app.listen(port).once('listening', () => console.log("Listening on " + port));
+fs.readdirSync(normalizedPath).forEach((file) => {
+    let controllers = require("./controller/" + file).default;
+    for (let controller of controllers) {
+        console.log(controller);
+        if (controller.method === 'get') {
+            app.get(controller.path, controller.func);
+        } else if (controller.method === 'put') {
+
+        }
+    }
+
+});
+
+const server = app.listen(port, (args) => console.log("Listening on port: " + port));
