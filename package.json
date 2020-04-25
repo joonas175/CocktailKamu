@@ -6,9 +6,9 @@
   "author": "salojarvi.joonas@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mariadb": "^2.3.1"
   },
-  "type": "module",
   "scripts": {
     "start": "node app.js"
   }
