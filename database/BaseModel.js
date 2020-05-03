@@ -23,18 +23,19 @@ class BaseModel {
     }
 
     static mapToDbType(obj, columns) {
+        let newObj = {};
         for(let key of Object.keys(columns)) {
             if(obj[key] !== undefined && obj[key] !== null) {
                 switch(columns[key]){
                     case Types.string:
-                        obj[key] = `'${obj[key]}'`; 
+                        newObj[key] = `'${obj[key]}'`; 
                         break;
 
                     case Types.float: 
                         if(isNaN(parseFloat(obj[key]))){
                             throw "Number error in field " + key;
                         } else {
-                            obj[key] = parseFloat(obj[key]); 
+                            newObj[key] = parseFloat(obj[key]); 
                             break;
                         }
 
@@ -42,15 +43,15 @@ class BaseModel {
                         if(isNaN(parseInt(obj[key]))){
                             throw "Number error in field " + key;
                         } else {
-                            obj[key] = parseInt(obj[key]);
+                            newObj[key] = parseInt(obj[key]);
                             break;
                         }
                 }
             } else {
-                obj[key] = "NULL"
+                newObj[key] = "NULL"
             }
         }
-        return obj;
+        return newObj;
     }
 
     async insert() {
