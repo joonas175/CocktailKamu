@@ -99,7 +99,7 @@ class BaseModel {
         try {
 
             let sql = `SELECT ${Object.keys(this.columns).join(', ')} FROM ${this.tableName} `
-            + ((params && params.where) ? params.where : '') // where clause
+            + ((params && params.where) ? ('WHERE ' + params.where) : '') // where clause
             + ((params && params.order) ? params.order : '') // order clause
 
             console.log(sql)

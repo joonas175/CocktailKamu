@@ -12,12 +12,23 @@ class IngredientService {
 
     }
 
-    static getAllIngredients() {
+    static async getAllIngredients() {
 
         const resp = await Ingredient.get();
 
         return resp;
 
+    }
+
+    static async getIngredientsById(idArray) {
+
+        const params = {
+            where: idArray.map((id) => `(id = ${id})`).join(' OR ')
+        };
+        
+        const resp = await Ingredient.get(params);
+
+        return resp;
     }
 
 }
