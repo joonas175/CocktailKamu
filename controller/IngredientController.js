@@ -1,4 +1,5 @@
 const { Ingredient } = require('../entities/Ingredient');
+const { IngredientService } = require('../service/IngredientService');
 
 const controllers = [
     {
@@ -6,14 +7,10 @@ const controllers = [
         path: '/ingredient',
         func: async (req, res) => {
 
-            console.log(req.body)
-            
-            let ingredient = new Ingredient(req.body);
-
             try {
-                let resp = await ingredient.insert();
+                let ingredient = await IngredientService.insertIngredient(req.body);
 
-                res.send(resp);
+                res.send(ingredient);
             } catch (error) {
                 console.log(error);
                 res.status(500).send({
@@ -30,9 +27,9 @@ const controllers = [
         func: async (req, res) => {
 
             try {
-                let resp = await Ingredient.get();
+                let ingredients = await IngredientService.getAllIngredients();
 
-                res.send(resp);
+                res.send(ingredients);
             } catch(error) {
                 console.log(error);
                 res.status(500).send({
