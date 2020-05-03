@@ -8,10 +8,10 @@ const controllers = [
 
             console.log(req.body)
             
-            let ingredient = new Ingredient();
+            let ingredient = new Ingredient(req.body);
 
             try {
-                let resp = await ingredient.insert(req.body);
+                let resp = await ingredient.insert();
 
                 res.send(resp);
             } catch (error) {

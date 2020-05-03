@@ -3,7 +3,8 @@ const { Types } = require('./DatabaseTypes');
 
 class BaseModel {
 
-    constructor(){ 
+    constructor(props){
+        Object.assign(this, props);
         this.columns = this.constructor.columns;
         this.conn = this.constructor.conn;
         this.tableName = this.constructor.tableName;
@@ -52,16 +53,15 @@ class BaseModel {
         return obj;
     }
 
-    async insert(obj) {
+    async insert() {
 
         let conn;
         let hasError;
+        let obj;
 
         try {
 
-            console.log("this columns + " + this.columns)
-
-            obj = BaseModel.mapToDbType(obj, this.columns);
+            obj = BaseModel.mapToDbType(this, this.columns);
 
             let sql = `INSERT INTO ${this.tableName} `
             + `(${Object.keys(this.columns).join(', ')})` // columns
