@@ -20,7 +20,7 @@ class IngredientService {
 
     }
 
-    static async getIngredientsById(idArray) {
+    static async getIngredientsByIDs(idArray) {
 
         const params = {
             where: idArray.map((id) => `(id = ${id})`).join(' OR ')
