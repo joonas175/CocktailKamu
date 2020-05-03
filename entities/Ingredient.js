@@ -5,9 +5,15 @@ const { Types } = require('../database/DatabaseTypes');
 
 class Ingredient extends BaseModel {
 
-    columns = {
-        id: Types.int,
-        name: Types.string
+    static get columns () { 
+        return {
+            id: Types.int,
+            name: Types.string
+        }
+    }
+
+    static get tableName() {
+        return 'ingredient'
     }
 
 }
