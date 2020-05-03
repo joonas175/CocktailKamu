@@ -1,17 +1,11 @@
 
-class Types {
+const Types = {
     
-    static string = {
-        validator: (value) => true,
-    }
+    string: "string",
 
-    static float = {
-        validator: (value) => !isNaN(parseFloat(value))
-    }
+    float: "float",
 
-    static int = {
-        validator: (value) => !isNaN(parseInt(value))
-    }
+    int: "int"
 }
 
 module.exports.Types = Types;
