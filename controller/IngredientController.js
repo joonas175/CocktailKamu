@@ -2,24 +2,18 @@ const { Ingredient } = require('../entities/Ingredient');
 
 const controllers = [
     {
-        method: 'get',
-        path: '/ingredient',
-        func: (req, res) => {
-            res.status(501).send({
-                status: 501,
-                message: "Not yet implemented!"
-            })
-        }
-    },
-    {
         method: 'put',
         path: '/ingredient',
         func: async (req, res) => {
+
+            console.log(req.body)
             
             let ingredient = new Ingredient();
 
             try {
-                let resp = await ingredient.insert();
+                let resp = await ingredient.insert(req.body);
+
+                res.send(resp);
             } catch (error) {
                 console.log(error);
                 res.status(500).send({
@@ -28,6 +22,24 @@ const controllers = [
                 })
             }
 
+        }
+    },
+    {
+        method: 'get',
+        path: '/ingredient',
+        func: async (req, res) => {
+
+            try {
+                let resp = await Ingredient.get();
+
+                res.send(resp);
+            } catch(error) {
+                console.log(error);
+                res.status(500).send({
+                    status: 500,
+                    message: "Internal server error"
+                })
+            }
         }
     }
 ]
