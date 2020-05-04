@@ -1,4 +1,3 @@
-const { Ingredient } = require('../entities/Ingredient');
 const { IngredientService } = require('../service/IngredientService');
 
 const controllers = [
