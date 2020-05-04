@@ -22,7 +22,7 @@ class BaseModel {
         throw "No table name specified"
     }
 
-    static mapToDbType(obj, columns) {
+    static _toQueryFormat(obj, columns) {
         let newObj = {};
         for(let key of Object.keys(columns)) {
             if(obj[key] !== undefined && obj[key] !== null) {
@@ -54,15 +54,29 @@ class BaseModel {
         return newObj;
     }
 
+
+    toQueryFormat() {
+        return BaseModel._toQueryFormat(this, this.columns);
+    }
+
+    sanitized() {
+        let newObj = {};
+        for(let key of Object.keys(this.columns)){
+            if(this[key]){
+                newObj[key] = this[key];
+            }
+        }
+        return newObj;
+    }
+
     async insert() {
 
         let conn;
         let hasError;
-        let obj;
-
+        
         try {
 
-            obj = BaseModel.mapToDbType(this, this.columns);
+            let obj = this.toQueryFormat();
 
             let sql = `INSERT INTO ${this.tableName} `
             + `(${Object.keys(this.columns).join(', ')})` // columns
@@ -76,7 +90,7 @@ class BaseModel {
 
             console.log(response);
 
-            obj.id = response.insertId;
+            this.id = response.insertId;
 
         } catch (error) {
             console.log(error);
@@ -87,7 +101,7 @@ class BaseModel {
         
         if(hasError !== null && hasError !== undefined) throw hasError;
 
-        return obj;
+        return this.sanitized();
 
     }
 
