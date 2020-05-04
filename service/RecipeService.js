@@ -1,5 +1,6 @@
 const { Recipe } = require('../entities/Recipe');
 const { RecipeStepService } = require('./RecipeStepService');
+const { RecipeIngredientService } = require('./RecipeIngredientService');
 
 class RecipeService {
 
@@ -11,15 +12,14 @@ class RecipeService {
             throw "Atleast 1 step is needed"
         }
 
-        /*
         if(!recipe.ingredients || recipe.ingredients.length < 1) {
             throw "Atleast 1 ingredient is needed"
         }
-        */
 
         const resp = await recipe.insert();
 
         resp.steps = await RecipeStepService.insertRecipeSteps(recipe.steps, resp.id);
+        resp.ingredients = await RecipeIngredientService.insertRecipeIngredients(recipe.ingredients, resp.id);
 
         return resp;
 
