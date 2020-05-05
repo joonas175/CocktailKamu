@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-ingredient',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddIngredientComponent implements OnInit {
 
-  constructor() { }
+  ingredientForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.ingredientForm = fb.group({
+      name: ['', Validators.required],
+      description: ''
+    });
+  }
 
   ngOnInit(): void {
+  
+  }
+
+  onClick(): void {
+    console.log(this.ingredientForm.value);
+    
   }
 
 }
