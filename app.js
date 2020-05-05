@@ -2,10 +2,13 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const cors = require('cors'); // For dev only!
 
 const port = 80;
 
 const app = express();
+
+app.use(cors()); // for dev only!
 
 app.use(express.json());
 
