@@ -88,8 +88,6 @@ class BaseModel {
 
             const response = await conn.query(sql);
 
-            console.log(response);
-
             this.id = response.insertId;
 
         } catch (error) {
@@ -122,8 +120,6 @@ class BaseModel {
             conn = await this.conn
 
             resp = await conn.query(sql);
-
-            console.log(resp)
 
         } catch (error) {
             console.log(error)
