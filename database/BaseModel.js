@@ -133,6 +133,29 @@ class BaseModel {
         return resp;
 
     }
+
+    static async nativeQuery(sql) {
+        let hasError;
+        let resp;
+        let conn;
+
+        try {
+            
+            conn = await this.conn
+
+            resp = await conn.query(sql);
+
+        } catch (error) {
+            console.log(error)
+            hasError = error;
+        }
+
+        if(conn != null) conn.end();
+        
+        if(hasError !== null && hasError !== undefined) throw hasError;
+
+        return resp;
+    }
 }
 
 module.exports.BaseModel = BaseModel
