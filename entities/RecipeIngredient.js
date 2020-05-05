@@ -24,7 +24,7 @@ class RecipeIngredient extends BaseModel {
         let sql = `SELECT ingredient.name, r_ingredient.amount, r_ingredient.amount_unit
         FROM r_ingredient
         INNER JOIN ingredient
-        ON r_ingredient.id = ingredient.id
+        ON r_ingredient.ingredient_id = ingredient.id
         WHERE r_ingredient.recipe_id = ${id};
         `;
 
