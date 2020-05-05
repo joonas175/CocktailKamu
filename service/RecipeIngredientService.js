@@ -16,9 +16,26 @@ class RecipeIngredientService {
        
     }
 
-    static async getRecipeStepsById() {
+    static async getIngredientsByIDs(idArray) {
 
-       
+        const params = {
+            where: idArray.map((id) => `(id = ${id})`).join(' OR ')
+        };
+        
+        const resp = await RecipeIngredient.get(params);
+
+        return resp;
+    }
+
+    static async getIngredientsByReceiptID(id) {
+
+        const params = {
+            where: `recipe_id = ${id}`
+        };
+        
+        const resp = await RecipeIngredient.get(params);
+
+        return resp;
     }
 
 }

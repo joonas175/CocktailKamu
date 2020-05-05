@@ -32,6 +32,22 @@ class RecipeService {
         return resp;
     }
 
+    static async getFullRecipeByID(id) {
+
+        const resp = (await Recipe.get({where: `ID = ${id}`}))[0];
+
+        resp.steps = await RecipeStepService.getStepsByReceiptID(id);
+
+        resp.ingredients = await RecipeIngredientService.getIngredientsByReceiptID(id);
+
+        return resp;
+
+    }
+
+    static async getRecipesByIngredientIDs(idArray) {
+
+    }
+
 }
 
 module.exports.RecipeService = RecipeService;

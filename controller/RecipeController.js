@@ -37,6 +37,24 @@ const controllers = [
                 })
             }
         }
+    },
+    {
+        method: 'get',
+        path: `/recipe/:id(\\d+)`,
+        func: async (req, res) => {
+            try {
+                console.log(req.params)
+                let ingredients = await RecipeService.getFullRecipeByID(req.params.id);
+
+                res.send(ingredients);
+            } catch(error) {
+                console.log(error);
+                res.status(500).send({
+                    status: 500,
+                    message: "Internal server error"
+                })
+            }
+        }
     }
 ]
 
