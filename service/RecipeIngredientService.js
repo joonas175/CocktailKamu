@@ -29,11 +29,7 @@ class RecipeIngredientService {
 
     static async getIngredientsByReceiptID(id) {
 
-        const params = {
-            where: `recipe_id = ${id}`
-        };
-        
-        const resp = await RecipeIngredient.get(params);
+        const resp = await RecipeIngredient.nativeQueryGetByRecipeIdWithInnerJoin(id);
 
         return resp;
     }

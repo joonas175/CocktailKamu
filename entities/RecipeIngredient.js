@@ -20,6 +20,17 @@ class RecipeIngredient extends BaseModel {
         return 'r_ingredient'
     }
 
+    static nativeQueryGetByRecipeIdWithInnerJoin(id) { // Longest function name ever :D
+        let sql = `SELECT ingredient.name, r_ingredient.amount, r_ingredient.amount_unit
+        FROM r_ingredient
+        INNER JOIN ingredient
+        ON r_ingredient.id = ingredient.id
+        WHERE r_ingredient.recipe_id = ${id};
+        `;
+
+        return RecipeIngredient.nativeQuery(sql);
+    }
+
 }
 
 module.exports.RecipeIngredient = RecipeIngredient
