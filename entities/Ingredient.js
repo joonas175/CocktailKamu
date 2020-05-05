@@ -8,7 +8,8 @@ class Ingredient extends BaseModel {
     static get columns () { 
         return {
             id: Types.int,
-            name: Types.string
+            name: Types.string,
+            description: Types.string
         }
     }
 
