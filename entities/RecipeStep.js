@@ -9,7 +9,8 @@ class RecipeStep extends BaseModel {
         return {
             id: Types.int,
             recipe_id: Types.int,
-            description: Types.string
+            description: Types.string,
+            step: Types.int
         }
     }
 
