@@ -21,8 +21,8 @@ export class AddRecipeComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
-    this.steps = new FormArray([new FormControl('', Validators.required)]);
-    this.ingredients = new FormArray([fb.group({id: ['', Validators.required], amount: '', amount_unit: ''})]);
+    this.steps = new FormArray([fb.group({description: ['', Validators.required], step: 0})]);
+    this.ingredients = new FormArray([fb.group({ingredient_id: ['', Validators.required], amount: '', amount_unit: ''})]);
 
     this.recipeForm = fb.group({
       name: ['', Validators.required],
@@ -41,7 +41,7 @@ export class AddRecipeComponent implements OnInit {
   }
 
   addStep(): void {
-    this.steps.push(new FormControl('', Validators.required));
+    this.steps.push(this.fb.group({description: ['', Validators.required], step: this.steps.length}));
   }
 
   addIngredient(): void {
@@ -70,7 +70,7 @@ export class AddRecipeComponent implements OnInit {
 
   ingredientSelected(event: any, index: number) {
     console.log(event);
-    this.ingredients.at(index).get('id').setValue(event.item.id);
+    this.ingredients.at(index).get('ingredient_id').setValue(event.item.id);
 
     console.log(this.recipeForm.value);
   }
