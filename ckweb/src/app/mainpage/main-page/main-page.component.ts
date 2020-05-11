@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Ingredient } from 'src/app/entities/Ingredient';
+import { UserService } from 'src/app/user-service.service';
 
 @Component({
   selector: 'app-main-page',
@@ -10,17 +11,18 @@ export class MainPageComponent implements OnInit {
 
   ingredients: Ingredient[] = [];
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.ingredients = this.userService.ingredients;
   }
 
   onIngredientAdded(ingredient: Ingredient): void {
-    this.ingredients.push(ingredient);
+    this.userService.addIngredient(ingredient);
   }
 
   removeIngredient(event: MouseEvent, index: number): void {
-    this.ingredients.splice(index, 1);
+    this.userService.removeIngredient(index);
     event.preventDefault();
   }
 
