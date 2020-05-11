@@ -42,7 +42,7 @@ export class AddRecipeComponent implements OnInit {
   }
 
   addIngredient(): void {
-    this.ingredients.push(this.fb.group({id: ['', Validators.required], amount: '', amount_unit: ''}));
+    this.ingredients.push(this.fb.group({ingredient_id: ['', Validators.required], amount: '', amount_unit: ''}));
   }
 
   onClick(): void {
