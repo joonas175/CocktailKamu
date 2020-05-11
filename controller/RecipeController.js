@@ -24,11 +24,20 @@ const controllers = [
         method: 'get',
         path: '/recipe',
         func: async (req, res) => {
-
+            console.log(req.query);
+            
             try {
-                let ingredients = await RecipeService.getRecipes();
+                let idArray = Object.keys(req.query).find((value) => value === 'id_array');
+                if(idArray) {
+                    let ingredients = await RecipeService.getRecipesByIngredientIDs(JSON.parse(req.query['id_array']));
 
-                res.send(ingredients);
+                    res.send(ingredients);
+                } else {
+                    console.log("Get all recipes")
+                    let ingredients = await RecipeService.getRecipes();
+
+                    res.send(ingredients);
+                }
             } catch(error) {
                 console.log(error);
                 res.status(500).send({
@@ -44,6 +53,7 @@ const controllers = [
         func: async (req, res) => {
             try {
                 console.log(req.params)
+
                 let ingredients = await RecipeService.getFullRecipeByID(req.params.id);
 
                 res.send(ingredients);

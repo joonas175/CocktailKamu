@@ -25,6 +25,11 @@ export class UserService {
   }
 
   updateAvailableDrinks(): void {
+    if(this.ingredients.length === 0) {
+      this.availableDrinks = [];
+      return;
+    }
+
     this.http.get(
       `${BASE_API_URL}/recipe`,
       { params: new HttpParams().set('id_array', JSON.stringify(this.ingredients.map((value) => value.id)))}

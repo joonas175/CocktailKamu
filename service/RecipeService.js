@@ -46,6 +46,12 @@ class RecipeService {
 
     static async getRecipesByIngredientIDs(idArray) {
 
+        const recipes = await Recipe.nativeQueryGetByRecipesByIngredientIDs(idArray);
+
+        console.log(recipes);
+
+        return recipes;
+        
     }
 
 }
