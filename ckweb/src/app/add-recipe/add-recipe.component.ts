@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, Form, FormControl, FormArray } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { BASE_API_URL } from '../global-variables';
-import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, tap, catchError} from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-recipe',
@@ -17,7 +17,8 @@ export class AddRecipeComponent implements OnInit {
   steps: FormArray;
   ingredients: FormArray;
 
-  ingredientOptions;
+  searching = false;
+  searchFailed = false;
 
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
@@ -34,10 +35,6 @@ export class AddRecipeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get(`${BASE_API_URL}/ingredient/`).subscribe((response) => {
-      console.log(response);
-      this.ingredientOptions = response;
-    });
   }
 
   addStep(): void {
@@ -50,7 +47,7 @@ export class AddRecipeComponent implements OnInit {
 
   onClick(): void {
     console.log(this.recipeForm.value);
-    
+
     this.http.put(`${BASE_API_URL}/recipe/`, this.recipeForm.value).subscribe((value) => {
       console.log(value);
     }, (error) => {
@@ -59,11 +56,20 @@ export class AddRecipeComponent implements OnInit {
   }
 
   search = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => this.ingredientOptions.filter((value: any) => value.name.includes(term)).slice(0, 6))
-    )
+  text$.pipe(
+    debounceTime(200),
+    distinctUntilChanged(),
+    tap(() => this.searching = true),
+    switchMap(term => term.length < 2 ? [] :
+      this.http.get(`${BASE_API_URL}/ingredient`, { params: new HttpParams().set('name', term) }).pipe(
+        tap(() => this.searchFailed = false),
+        catchError(() => {
+          this.searchFailed = true;
+          return of([]);
+        }))
+    ),
+    tap(() => this.searching = false)
+  )
 
   formatter = (obj: any) => obj.name;
 

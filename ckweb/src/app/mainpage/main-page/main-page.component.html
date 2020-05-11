@@ -1,0 +1,29 @@
+<style>
+    .container {
+        width: 100%;
+        text-align: center;
+        margin: 10px 0px;
+    }
+    .ingredient {
+        display: inline-block;
+        border: 1px solid black;
+        border-radius: 3px;
+        margin: 3px 5px;
+        padding: 0px 10px;
+    }
+</style>
+<div class="container">
+    <div style="max-width: 400px; margin: auto;">
+        <p style="flex-direction: row; display: inline-block;">Add ingredient </p>
+        <app-ingredient-selector (ingredientAdded)=(onIngredientAdded($event))></app-ingredient-selector>
+    </div>
+</div>
+<div *ngIf="ingredients.length > 0" class="container">
+    <label>Your ingredients</label>
+    <div style="flex-direction: row; justify-items: center;">
+        <div class="ingredient" *ngFor="let ingredient of ingredients; index as i">
+            <p style="margin: 0px; display: inline-block;">{{ingredient.name}}</p>
+            <a style="color: red; display: inline-block; margin-left: 3px" href="#" (click)="removeIngredient($event, i)">x</a>
+        </div>
+    </div>
+</div>

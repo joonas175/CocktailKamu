@@ -1,0 +1,12 @@
+<input 
+                        id="typeahead-basic" 
+                        type="text" 
+                        class="form-control" 
+                        placeholder="Ingredient"
+                        [ngbTypeahead]="search" 
+                        [editable]='false'
+                        [resultFormatter]="formatter"
+                        [inputFormatter]="inputFormatter"
+                        (selectItem)="ingredientSelected($event)"
+                        style="display: inline-block;"
+                    />
