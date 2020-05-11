@@ -112,8 +112,9 @@ class BaseModel {
         try {
 
             let sql = `SELECT ${Object.keys(this.columns).join(', ')} FROM ${this.tableName} `
-            + ((params && params.where) ? ('WHERE ' + params.where) : '') // where clause
-            + ((params && params.order) ? params.order : '') // order clause
+            + ((params && params.where) ? (`WHERE ${params.where} `) : '') // where clause
+            + ((params && params.order) ? `${params.order} ` : '') // order clause
+            + ((params && params.limit && params.page) ? (`LIMIT ${(params.page - 1) * params.limit}, ${params.limit}`) : '');
 
             console.log(sql)
             

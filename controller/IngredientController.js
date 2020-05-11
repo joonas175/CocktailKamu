@@ -25,10 +25,20 @@ const controllers = [
         path: '/ingredient',
         func: async (req, res) => {
 
-            try {
-                let ingredients = await IngredientService.getAllIngredients();
+            console.log(req.query);
 
-                res.send(ingredients);
+            try {
+
+                if(Object.keys(req.query).length === 0) {
+                    let ingredients = await IngredientService.getAllIngredients();
+
+                    res.send(ingredients);
+                } else {
+                    let ingredients = await IngredientService.searchIngredients(req.query);
+
+                    res.send(ingredients);
+                }
+                
             } catch(error) {
                 console.log(error);
                 res.status(500).send({
@@ -36,7 +46,7 @@ const controllers = [
                     message: "Internal server error"
                 })
             }
-        }
+        },
     }
 ]
 
