@@ -22,16 +22,20 @@ export class AddRecipeComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
-    this.steps = new FormArray([fb.group({description: ['', Validators.required], step: 0})]);
-    this.ingredients = new FormArray([fb.group({ingredient_id: ['', Validators.required], amount: '', amount_unit: ''})]);
+    this.createForms();
 
-    this.recipeForm = fb.group({
+  }
+
+  createForms(): void {
+    this.steps = new FormArray([this.fb.group({description: ['', Validators.required], step: 0})]);
+    this.ingredients = new FormArray([this.fb.group({ingredient_id: ['', Validators.required], amount: '', amount_unit: ''})]);
+
+    this.recipeForm = this.fb.group({
       name: ['', Validators.required],
       description: '',
       steps: this.steps,
       ingredients: this.ingredients
     });
-
   }
 
   ngOnInit(): void {
@@ -49,6 +53,7 @@ export class AddRecipeComponent implements OnInit {
     console.log(this.recipeForm.value);
 
     this.http.put(`${BASE_API_URL}/recipe/`, this.recipeForm.value).subscribe((value) => {
+      this.createForms();
       console.log(value);
     }, (error) => {
       console.log(error);
