@@ -13,7 +13,7 @@ export class UserService {
 
   ingredients: BehaviorSubject<Ingredient[]> = new BehaviorSubject<Ingredient[]>([]);
 
-  availableDrinks: Subject<Drink[]> = new Subject<Drink[]>();
+  availableDrinks: BehaviorSubject<Drink[]> = new BehaviorSubject<Drink[]>([]);
 
   constructor(private http: HttpClient, @Inject(LOCAL_STORAGE) private storage: StorageService) {
     this.ingredients.subscribe((value) => {
