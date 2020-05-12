@@ -26,6 +26,7 @@ class Recipe extends BaseModel {
             FROM r_ingredient WHERE ingredient_id IN (${idArray.join(', ')})) AS temp2
         ON temp2.recipe_id2 = recipe.id
         WHERE id IN (SELECT DISTINCT recipe_id FROM r_ingredient WHERE ingredient_id IN (${idArray.join(', ')}))
+        ORDER BY (totalIngredients - ownedIngredients) ASC
         ;`;
 
         console.log(sql);
