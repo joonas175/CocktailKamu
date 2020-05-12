@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Ingredient } from 'src/app/entities/Ingredient';
 import { UserService } from 'src/app/user-service.service';
 import { Drink } from 'src/app/entities/Drink';
+import { HttpClient } from '@angular/common/http';
+import { BASE_API_URL } from 'src/app/global-variables';
 
 @Component({
   selector: 'app-main-page',
@@ -13,7 +15,9 @@ export class MainPageComponent implements OnInit {
   ingredients: Ingredient[];
   drinks: Drink[];
 
-  constructor(private userService: UserService) {
+  fullDrinks: any = {};
+
+  constructor(private userService: UserService, private http: HttpClient) {
     this.userService.ingredients.subscribe((value) => {
       this.ingredients = value;
     });
@@ -34,8 +38,14 @@ export class MainPageComponent implements OnInit {
     event.preventDefault();
   }
 
-  panelChange(event): void {
-    console.log(event);
+  panelChange(event: any): void {
+    const id = event.panelId.split('-')[1];
+
+    if (!Object.keys(this.fullDrinks).find((value) => value === id)) {
+      this.http.get<Drink>(`${BASE_API_URL}/recipe/${id}`).subscribe((value) => {
+        this.fullDrinks[`${id}`] = value;
+        });
+    }
   }
 
 }
