@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors'); // For dev only!
 
-const port = 80;
+const port = 8081;
 
 const app = express();
 
