@@ -9,7 +9,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'docker run -p 8080:80'
+                sh 'docker stop ck'
+                sh 'docker run -p 8080:80 --name ck ck'
             }
         }
     }
