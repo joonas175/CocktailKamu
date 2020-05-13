@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'docker stop ck'
+                sh 'docker stop $(docker ps -q --filter ancestor=ck )'
                 sh 'docker run -p 8080:80 --name ck ck'
             }
         }
