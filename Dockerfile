@@ -8,8 +8,9 @@ COPY package.json /app
 COPY yarn.lock /app
 RUN yarn install
 
-COPY ckweb/package.json /app
-COPY ckweb/yarn.lock /app
+RUN mkdir ckweb
+COPY ckweb/package.json /app/ckweb
+COPY ckweb/yarn.lock /app/ckweb
 RUN cd ckweb && yarn install
 
 COPY . /app
