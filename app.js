@@ -12,7 +12,20 @@ app.use(cors()); // for dev only!
 
 app.use(express.json());
 
-app.use(/(\/api\/)/, express.static('ckweb/dist/ckweb/'))
+/**
+ * For static files
+ */
+const allowedExt = [
+    '.js',
+    '.ico',
+    '.css',
+    '.png',
+    '.jpg',
+    '.woff2',
+    '.woff',
+    '.ttf',
+    '.svg',
+];
 
 
 /**
@@ -31,6 +44,17 @@ fs.readdirSync(normalizedPath).forEach((file) => {
         }
     }
 
+});
+
+/**
+ * Serve index for all calls except api calls
+ */
+app.get('*', (req, res) => {
+    if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) {
+      res.sendFile(path.resolve(`ckweb/dist/ckweb/${req.url}`));
+    } else {
+      res.sendFile(path.resolve('ckweb/dist/ckweb/index.html'));
+    }
 });
 
 
