@@ -1,15 +1,18 @@
 pipeline {
     agent {
         docker {
-            image 'node:6-alpine' 
-            args '-p 3000:3000' 
+            image 'node:13-alpine'  
         }
     }
     stages {
         stage('Build') { 
             steps {
-                sh 'yarn install'
-                sh 'yarn build-web'
+                sh 'docker build -t ck'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'docker run -p 8080:80 ck'
             }
         }
     }
