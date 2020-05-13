@@ -12,7 +12,7 @@ app.use(cors()); // for dev only!
 
 app.use(express.json());
 
-app.use('/ck', express.static('ckweb/dist/ckweb/'))
+app.use(/^(\/api\/)/, express.static('ckweb/dist/ckweb/'))
 
 
 /**

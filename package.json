@@ -12,6 +12,6 @@
   },
   "scripts": {
     "start": "node app.js",
-    "build-web": "cd ./ckweb && yarn run ng build --prod --base-href /ck/"
+    "build-web": "cd ./ckweb && yarn run ng build --prod --base-href /"
   }
 }
