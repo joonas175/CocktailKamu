@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh 'docker build -t ck'
+                sh 'docker build -t ck .'
             }
         }
         stage('Deploy') {
