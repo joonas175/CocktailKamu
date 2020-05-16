@@ -17,9 +17,17 @@ export class SearchService {
   constructor(private http: HttpClient) {
     this.term.pipe(debounceTime(400), distinctUntilChanged())
       .subscribe((value) => {
-        http.get(`${BASE_API_URL}/recipe`, { params: new HttpParams().set('name', value) }).subscribe((recipes) => {
-          console.log(recipes);
-        })
+        http.get<Drink[]>(
+          `${BASE_API_URL}/recipe`,
+          {
+            params: new HttpParams()
+            .set('name', value)
+            .set('description', value)
+            .set('operator', 'or')
+          }
+          ).subscribe((recipes) => {
+            this.results.next(recipes);
+        });
       }
     );
 

@@ -24,6 +24,10 @@ export class RecipesComponent implements OnInit {
 
     this.results = this.searchService.results.value;
     this.searchBar.reset(this.searchService.term.value);
+
+    this.searchService.results.subscribe((value) => {
+      this.results = value;
+    });
   }
 
 }
