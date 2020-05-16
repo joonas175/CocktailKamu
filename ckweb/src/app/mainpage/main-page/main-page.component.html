@@ -13,10 +13,11 @@
     }
 </style>
 <div class="container">
-    <div style="max-width: 400px; margin: auto;">
-        <p style="flex-direction: row; display: inline-block;">Add ingredient </p>
-        <app-ingredient-selector (ingredientAdded)=(onIngredientAdded($event))></app-ingredient-selector>
-    </div>
+    <div class="container">
+        <div style="max-width: 400px; margin: auto;">
+            <p style="flex-direction: row; display: inline-block;">Add ingredient </p>
+            <app-ingredient-selector (ingredientAdded)=(onIngredientAdded($event))></app-ingredient-selector>
+        </div>
     </div>
     <div *ngIf="ingredients.length > 0" class="container">
         <label>Your ingredients</label>
@@ -26,7 +27,7 @@
                 <a style="color: red; display: inline-block; margin-left: 3px" href="#" (click)="removeIngredient($event, i)">x</a>
             </div>
         </div>
-
+    </div>
     <ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1" (panelChange)="panelChange($event)">
         <ngb-panel *ngFor="let drink of drinks" id="drink-{{drink.id}}">
         <ng-template ngbPanelHeader let-opened="opened">
