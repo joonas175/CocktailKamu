@@ -32,9 +32,14 @@
         <ngb-panel *ngFor="let drink of drinks" id="drink-{{drink.id}}">
         <ng-template ngbPanelHeader let-opened="opened">
             <div class="d-flex align-items-center justify-content-between">
-            <button ngbPanelToggle class="btn btn-link p-0">{{ drink.name }}</button>
-            <p style="margin: 0px; font-style: italic;" 
-            *ngIf="drink.totalIngredients - drink.ownedIngredients != 0">Missing {{drink.totalIngredients - drink.ownedIngredients}} ingredients</p>
+                <button ngbPanelToggle class="btn btn-link p-0">{{ drink.name }}</button>
+                <div class="row">
+                    <p style="margin: 0px; font-style: italic;" 
+                    *ngIf="drink.totalIngredients - drink.ownedIngredients != 0">Missing {{drink.totalIngredients - drink.ownedIngredients}} ingredients</p>
+                    <button style="margin: auto; border: 0px; background-color: inherit;" ngbPanelToggle>
+                        <span class="oi oi-caret-bottom" style="margin: auto;"></span>
+                    </button>
+                </div>
             </div>
         </ng-template>
         <ng-template ngbPanelContent>
