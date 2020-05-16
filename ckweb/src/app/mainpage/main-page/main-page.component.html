@@ -17,62 +17,63 @@
         <p style="flex-direction: row; display: inline-block;">Add ingredient </p>
         <app-ingredient-selector (ingredientAdded)=(onIngredientAdded($event))></app-ingredient-selector>
     </div>
-</div>
-<div *ngIf="ingredients.length > 0" class="container">
-    <label>Your ingredients</label>
-    <div style="flex-direction: row; justify-items: center;">
-        <div class="ingredient" *ngFor="let ingredient of ingredients; index as i">
-            <p style="margin: 0px; display: inline-block;">{{ingredient.name}}</p>
-            <a style="color: red; display: inline-block; margin-left: 3px" href="#" (click)="removeIngredient($event, i)">x</a>
-        </div>
     </div>
-</div>
-<ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1" (panelChange)="panelChange($event)">
-    <ngb-panel *ngFor="let drink of drinks" id="drink-{{drink.id}}">
-      <ng-template ngbPanelHeader let-opened="opened">
-        <div class="d-flex align-items-center justify-content-between">
-          <button ngbPanelToggle class="btn btn-link p-0">{{ drink.name }}</button>
-          <p style="margin: 0px; font-style: italic;" 
-          *ngIf="drink.totalIngredients - drink.ownedIngredients != 0">Missing {{drink.totalIngredients - drink.ownedIngredients}} ingredients</p>
+    <div *ngIf="ingredients.length > 0" class="container">
+        <label>Your ingredients</label>
+        <div style="flex-direction: row; justify-items: center;">
+            <div class="ingredient" *ngFor="let ingredient of ingredients; index as i">
+                <p style="margin: 0px; display: inline-block;">{{ingredient.name}}</p>
+                <a style="color: red; display: inline-block; margin-left: 3px" href="#" (click)="removeIngredient($event, i)">x</a>
+            </div>
         </div>
-      </ng-template>
-      <ng-template ngbPanelContent>
-        <div *ngIf="fullDrinks[drink.id] === undefined; else elseBlock">
-            <div class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
-              </div>
-        </div>
-        <ng-template #elseBlock>
-            <div class="container">
-                <div *ngIf="drink.description !== ''" class="row">
-                    <div class="col-sm">
-                        <h6>Description</h6>
-                        <p class="lead">{{drink.description}}</p>
-                    </div>
-                </div>
-                <div class="row" style="text-align: start;">
-                    <!-- Ingredients -->
-                    <div class="col-sm-6">
-                        <ul class="list-group">
-                            <li class="list-group-item" *ngFor="let ingredient of fullDrinks[drink.id].ingredients">
-                                <div class="row">
-                                    <div class="col-8">{{ingredient.name}}</div>
-                                    <div class="col-4">{{ingredient.amount}} {{ingredient.amount_unit}}</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- Steps -->
-                    <div class="col-sm-6">
-                        <ul>
-                            <li *ngFor="let step of fullDrinks[drink.id].steps">
-                                {{step.description}}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+
+    <ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1" (panelChange)="panelChange($event)">
+        <ngb-panel *ngFor="let drink of drinks" id="drink-{{drink.id}}">
+        <ng-template ngbPanelHeader let-opened="opened">
+            <div class="d-flex align-items-center justify-content-between">
+            <button ngbPanelToggle class="btn btn-link p-0">{{ drink.name }}</button>
+            <p style="margin: 0px; font-style: italic;" 
+            *ngIf="drink.totalIngredients - drink.ownedIngredients != 0">Missing {{drink.totalIngredients - drink.ownedIngredients}} ingredients</p>
             </div>
         </ng-template>
-      </ng-template>
-    </ngb-panel>
-</ngb-accordion>
+        <ng-template ngbPanelContent>
+            <div *ngIf="fullDrinks[drink.id] === undefined; else elseBlock">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <ng-template #elseBlock>
+                <div class="container">
+                    <div *ngIf="drink.description !== ''" class="row">
+                        <div class="col-sm">
+                            <h6>Description</h6>
+                            <p class="lead">{{drink.description}}</p>
+                        </div>
+                    </div>
+                    <div class="row" style="text-align: start;">
+                        <!-- Ingredients -->
+                        <div class="col-sm-6">
+                            <ul class="list-group">
+                                <li class="list-group-item" *ngFor="let ingredient of fullDrinks[drink.id].ingredients">
+                                    <div class="row">
+                                        <div class="col-8">{{ingredient.name}}</div>
+                                        <div class="col-4">{{ingredient.amount}} {{ingredient.amount_unit}}</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Steps -->
+                        <div class="col-sm-6">
+                            <ul>
+                                <li *ngFor="let step of fullDrinks[drink.id].steps">
+                                    {{step.description}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </ng-template>
+        </ngb-panel>
+    </ngb-accordion>
+</div>
