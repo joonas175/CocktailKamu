@@ -34,7 +34,7 @@ const controllers = [
 
                     res.send(ingredients);
                 } else {
-                    let ingredients = await IngredientService.searchIngredients(req.query);
+                    let ingredients = await IngredientService.searchByTerms(req.query);
 
                     res.send(ingredients);
                 }

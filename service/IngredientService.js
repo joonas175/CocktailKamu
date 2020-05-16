@@ -1,6 +1,11 @@
 const { Ingredient } = require('../entities/Ingredient');
+const { BaseService } = require('./BaseService');
 
-class IngredientService {
+class IngredientService extends BaseService {
+
+    static get staticType () {
+        return Ingredient;
+    }
 
     static async insertIngredient(props) {
 
@@ -31,6 +36,7 @@ class IngredientService {
         return resp;
     }
 
+    /*
     static async searchIngredients(terms) {
 
         const params = {
@@ -44,6 +50,7 @@ class IngredientService {
 
         return resp;
     }
+    */
 
 }
 

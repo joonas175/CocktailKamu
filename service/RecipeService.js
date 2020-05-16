@@ -1,8 +1,13 @@
 const { Recipe } = require('../entities/Recipe');
 const { RecipeStepService } = require('./RecipeStepService');
 const { RecipeIngredientService } = require('./RecipeIngredientService');
+const { BaseService } = require('./BaseService');
 
-class RecipeService {
+class RecipeService extends BaseService {
+
+    static get staticType () {
+        return Recipe;
+    }
 
     static async insertRecipe(props) {
 

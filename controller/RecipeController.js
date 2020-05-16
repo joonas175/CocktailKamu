@@ -29,14 +29,19 @@ const controllers = [
             try {
                 let idArray = Object.keys(req.query).find((value) => value === 'id_array');
                 if(idArray) {
-                    let ingredients = await RecipeService.getRecipesByIngredientIDs(JSON.parse(req.query['id_array']));
+                    let recipes = await RecipeService.getRecipesByIngredientIDs(JSON.parse(req.query['id_array']));
 
-                    res.send(ingredients);
-                } else {
+                    res.send(recipes);
+                } else if(Object.keys(req.query).length === 0){
                     console.log("Get all recipes")
-                    let ingredients = await RecipeService.getRecipes();
+                    let recipes = await RecipeService.getRecipes();
 
-                    res.send(ingredients);
+                    res.send(recipes);
+                } else {
+                    console.log("Get recipes by terms")
+                    let recipes = await RecipeService.searchByTerms(req.query);
+
+                    res.send(recipes);
                 }
             } catch(error) {
                 console.log(error);
