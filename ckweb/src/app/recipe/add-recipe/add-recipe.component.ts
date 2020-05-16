@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, Form, FormControl, FormArray } from '@angular/forms';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { BASE_API_URL } from '../global-variables';
 import { Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, tap, catchError} from 'rxjs/operators';
+import { BASE_API_URL } from 'src/app/global-variables';
 
 @Component({
   selector: 'app-add-recipe',
