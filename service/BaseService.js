@@ -7,8 +7,14 @@ class BaseService {
 
     static async searchByTerms(terms) {
 
+
+        let operator = (terms['operator'] !== null || terms['operator'].toUpperCase() === 'OR') ? ' OR ' : ' AND '
+
         const params = {
-            where: Object.keys(terms).filter((key) => (key != 'page' && key != 'limit')).map((key) => `(${key} LIKE '%${terms[key]}%')`).join(' AND ')
+            where: Object.keys(terms)
+                .filter((key) => Object.keys(this.staticType.columns).find((value) => value === key))
+                .map((key) => `(${key} LIKE '%${terms[key]}%')`)
+                .join(operator)
         };
 
         params.page = terms.page ? terms.page : 1;
