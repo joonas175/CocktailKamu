@@ -28,7 +28,7 @@
             </div>
         </div>
     </div>
-    <ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1" (panelChange)="panelChange($event)">
+    <ngb-accordion #accordion="ngbAccordion" (panelChange)="panelChange($event)">
         <ngb-panel *ngFor="let drink of drinks" id="drink-{{drink.id}}">
         <ng-template ngbPanelHeader let-opened="opened">
             <div class="d-flex align-items-center justify-content-between">
@@ -36,9 +36,18 @@
                 <div class="row">
                     <p style="margin: 0px; font-style: italic;" 
                     *ngIf="drink.totalIngredients - drink.ownedIngredients != 0">Missing {{drink.totalIngredients - drink.ownedIngredients}} ingredients</p>
-                    <button style="margin: auto; border: 0px; background-color: inherit;" ngbPanelToggle>
-                        <span class="oi oi-caret-bottom" style="margin: auto;"></span>
-                    </button>
+                    <div *ngIf="accordion.isExpanded('drink-' + drink.id); then thenBlock else elseBlock"></div>
+                    <ng-template #thenBlock>
+                        <button style="margin: auto; border: 0px; background-color: inherit;" ngbPanelToggle>
+                            <span class="oi oi-caret-top" style="margin: auto;"></span>
+                        </button>
+                    </ng-template>
+                    <ng-template #elseBlock>
+                        <button style="margin: auto; border: 0px; background-color: inherit;" ngbPanelToggle>
+                            <span class="oi oi-caret-bottom" style="margin: auto;"></span>
+                        </button>
+                    </ng-template>
+                    
                 </div>
             </div>
         </ng-template>
