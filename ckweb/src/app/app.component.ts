@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 declare var $: any;
 @Component({
   selector: 'app-root',
@@ -52,7 +53,7 @@ export class AppComponent implements OnInit {
       'response_type=code&' +
       'client_id=841190437727-qrkbg7i12nqg7shdbk029a5qr4mt6tm9.apps.googleusercontent.com&' +
       'scope=openid%20email&' +
-      'redirect_uri=http%3A//localhost:8081/login&' +
+      `redirect_uri=${environment.redirect_url}&` +
       `state=${this.router.url}&` +
       'access_type=offline';
   }
