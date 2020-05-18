@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node:current-alpine
 
 RUN npm install -g yarn
 
