@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
+import { HttpClient } from '@angular/common/http';
 declare var $: any;
 @Component({
   selector: 'app-root',
@@ -9,7 +12,25 @@ export class AppComponent implements OnInit {
 
   title = 'ckweb';
 
+  loggedIn = false;
+
+  constructor(private router: Router, private auth: AuthService, private http: HttpClient) {
+    auth.authObj.subscribe((value) => {
+      if (value !== null) {
+        this.loggedIn = true;
+      } else {
+        this.loggedIn = false;
+      }
+    });
+  }
+
   ngOnInit(): void {
+    const authObj = this.auth.authObj.value;
+    if (authObj !== null) {
+      this.loggedIn = true;
+    } else {
+      this.loggedIn = false;
+    }
 
     /**
      * jQuery and angular together may be a bad idea but I don't care.
@@ -24,6 +45,21 @@ export class AppComponent implements OnInit {
     $('#navbarSupportedContent').on('hide.bs.collapse', () =>  {
       $('.nav-pills').removeClass('flex-column');
     });
+  }
+
+  loginUrl(): string {
+    return 'https://accounts.google.com/o/oauth2/v2/auth?' +
+      'response_type=code&' +
+      'client_id=841190437727-qrkbg7i12nqg7shdbk029a5qr4mt6tm9.apps.googleusercontent.com&' +
+      'scope=openid%20email&' +
+      'redirect_uri=http%3A//localhost:8081/login&' +
+      `state=${this.router.url}&` +
+      'access_type=offline';
+  }
+
+  logout(event: MouseEvent): void {
+    event.preventDefault();
+    this.auth.saveAuthObj(null);
   }
 
 }

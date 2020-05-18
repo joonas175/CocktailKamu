@@ -11,12 +11,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MainPageModule } from './mainpage/mainpage.module';
 import { RecipeModule } from './recipe/recipe.module';
+import { LoginComponent } from './login/login.component';
+import { authInterceptorProviders } from './auth-interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddIngredientComponent,
-    AddRecipeComponent
+    AddRecipeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,7 @@ import { RecipeModule } from './recipe/recipe.module';
     MainPageModule,
     RecipeModule
   ],
-  providers: [],
+  providers: [ authInterceptorProviders ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

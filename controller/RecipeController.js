@@ -57,7 +57,6 @@ const controllers = [
         path: `/recipe/:id(\\d+)`,
         func: async (req, res) => {
             try {
-                console.log(req.params)
 
                 let ingredients = await RecipeService.getFullRecipeByID(req.params.id);
 

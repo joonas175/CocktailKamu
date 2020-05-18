@@ -3,6 +3,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors'); // For dev only!
+const { SecurityLayer } = require('./security/SecurityLayer');
 
 const port = 8081;
 
@@ -38,6 +39,7 @@ fs.readdirSync(normalizedPath).forEach((file) => {
     for (let controller of controllers) {
         let path = `/api${controller.path}`;
         if (controller.method === 'get') {
+            app.get(path, SecurityLayer.setSecurityLayer(controller))
             app.get(path, controller.func);
         } else if (controller.method === 'put') {
             app.put(path, controller.func);

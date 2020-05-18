@@ -30,6 +30,14 @@
             <a class="dropdown-item" routerLink="ingredients/add" routerLinkActive="active">Add ingredients</a>
           </div>
         </li>
+        <li *ngIf="!loggedIn; else logoutBlock">
+          <a class="nav-link" href="{{loginUrl()}}">Login</a>
+        </li>
+        <ng-template #logoutBlock>
+          <li>
+            <a class="nav-link" href="#" (click)="logout($event)">Logout</a>
+          </li>
+        </ng-template>
       </ul>
     </div>
   </nav>
