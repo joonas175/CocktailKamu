@@ -61,3 +61,5 @@ app.get('*', (req, res) => {
 
 
 const server = app.listen(port, (args) => console.log("Listening on port: " + port));
+console.log("client id " + process.env.CLIENT_ID);
+console.log("client secret " + process.env.CLIENT_SECRET);
