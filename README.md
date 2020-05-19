@@ -42,3 +42,5 @@ Backend breaks with Node 13.x, use Node 14.x!
 - Cleanup backend code
   - Reusable code cleanup
   - Alternative for native queries?
+
+- Error handling!
