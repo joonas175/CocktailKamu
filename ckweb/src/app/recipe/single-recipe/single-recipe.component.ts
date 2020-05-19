@@ -10,7 +10,7 @@ import { BASE_API_URL } from 'src/app/global-variables';
 })
 export class SingleRecipeComponent implements OnInit {
 
-  drink: Drink;
+  drink: Drink = null;
 
   constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient) { }
 
