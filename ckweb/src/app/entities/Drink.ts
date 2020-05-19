@@ -6,4 +6,6 @@ export interface Drink {
     verified: number; // @todo boolean?
     totalIngredients?: number;
     ownedIngredients?: number;
+    steps?: any;
+    ingredients?: any;
 }
