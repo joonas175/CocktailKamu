@@ -5,6 +5,7 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SingleRecipeComponent } from './single-recipe/single-recipe.component';
+import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -14,7 +15,8 @@ import { SingleRecipeComponent } from './single-recipe/single-recipe.component';
     CommonModule,
     RecipeRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbRatingModule
   ]
 })
 export class RecipeModule { }

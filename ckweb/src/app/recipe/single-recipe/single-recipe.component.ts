@@ -3,16 +3,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Drink } from 'src/app/entities/Drink';
 import { BASE_API_URL } from 'src/app/global-variables';
+import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-single-recipe',
-  templateUrl: './single-recipe.component.html'
+  templateUrl: './single-recipe.component.html',
+  providers: [NgbRatingConfig]
 })
 export class SingleRecipeComponent implements OnInit {
 
   drink: Drink = null;
 
-  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient) { }
+  currentRating: number = null;
+
+  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((value) => {
@@ -21,6 +26,10 @@ export class SingleRecipeComponent implements OnInit {
         this.drink = drink;
         });
     });
+  }
+
+  rateChange(value: any): void {
+    console.log(value);
   }
 
 }

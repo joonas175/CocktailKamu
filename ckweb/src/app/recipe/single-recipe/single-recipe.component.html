@@ -1,7 +1,31 @@
+<style>
+    .star {
+      position: relative;
+      display: inline-block;
+      font-size: 2rem;
+      color: #d3d3d3;
+    }
+    .full {
+      color: #1e90ff;;
+    }
+    .half {
+      position: absolute;
+      display: inline-block;
+      overflow: hidden;
+      color: #1e90ff;;
+    }
+</style>
+
 <div *ngIf="drink !== null" class="container">
     <div class="row">
         <div class="col-sm" style="border: 1px solid lightgray; border-radius: 5px; margin: 15px; padding-top: 10px;">
             <h4>{{drink.name}}</h4>
+            <ng-template #t let-fill="fill">
+                <span class="star" [class.full]="fill === 100">
+                  <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                </span>
+            </ng-template>
+            <ngb-rating [rate]="currentRating" [starTemplate]="t" [max]="5" (rateChange)="rateChange"></ngb-rating>
             <p class="lead">{{drink.description}}</p>
         </div>
     </div>
