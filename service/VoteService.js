@@ -14,9 +14,15 @@ class VoteService extends BaseService {
             user_id: userId
         }
 
-        const previous = await this.searchByTerms(terms);
+        let previous = await this.searchByTerms(terms);
 
-        console.log(previous);
+        if(previous && previous[0]){
+            previous = new Vote(previous[0]);
+            previous.vote = voteVal;
+            const resp = previous.update();
+
+            return resp;
+        }
 
         const vote = new Vote({
             recipe_id: id,
