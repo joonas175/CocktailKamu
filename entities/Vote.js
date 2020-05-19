@@ -19,12 +19,12 @@ class Vote extends BaseModel {
     }
     
     static nativeQueryGetAvgByRecipeId(id) {
-        let sql = `SELECT AVG(vote)
+        let sql = `SELECT AVG(vote) AS avgvote
         FROM ${this.tableName}
         WHERE recipe_id = ${id};
         `;
 
-        return RecipeIngredient.nativeQuery(sql);
+        return Vote.nativeQuery(sql);
     }
 
 }
