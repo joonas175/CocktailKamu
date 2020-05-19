@@ -42,6 +42,7 @@ fs.readdirSync(normalizedPath).forEach((file) => {
             app.get(path, SecurityLayer.setSecurityLayer(controller))
             app.get(path, controller.func);
         } else if (controller.method === 'put') {
+            app.put(path, SecurityLayer.setSecurityLayer(controller))
             app.put(path, controller.func);
         }
     }
