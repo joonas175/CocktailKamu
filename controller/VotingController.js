@@ -6,6 +6,8 @@ const controllers = [
         path: '/vote/:id(\\d+)',
         func: async (req, res) => {
 
+            console.log(req.userId);
+
             try {
                 let vote = await VoteService.insertVote(req.params.id, req.query.vote, req.userId);
 
@@ -26,8 +28,6 @@ const controllers = [
         method: 'get',
         path: '/vote/:id(\\d+)',
         func: async (req, res) => {
-
-            console.log(req.userId);
 
             try {
                 let avg = await VoteService.getAvgById(req.params.id);
