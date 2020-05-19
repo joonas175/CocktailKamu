@@ -34,7 +34,13 @@ class VoteService extends BaseService {
 
         const resp = await Vote.nativeQueryGetAvgByRecipeId(id);
 
-        return resp;
+        if (resp.length > 0) {
+            return resp[0];
+        } else {
+            return { avgvote: 0 }
+        }
+
+        
 
     }
 
