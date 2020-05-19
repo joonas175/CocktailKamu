@@ -6,8 +6,7 @@ import { BASE_API_URL } from 'src/app/global-variables';
 
 @Component({
   selector: 'app-single-recipe',
-  templateUrl: './single-recipe.component.html',
-  styleUrls: ['./single-recipe.component.css']
+  templateUrl: './single-recipe.component.html'
 })
 export class SingleRecipeComponent implements OnInit {
 

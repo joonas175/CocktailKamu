@@ -7,8 +7,7 @@ import { Ingredient } from 'src/app/entities/Ingredient';
 
 @Component({
   selector: 'app-ingredient-selector',
-  templateUrl: './ingredient-selector.component.html',
-  styleUrls: ['./ingredient-selector.component.css']
+  templateUrl: './ingredient-selector.component.html'
 })
 export class IngredientSelectorComponent implements OnInit {
 

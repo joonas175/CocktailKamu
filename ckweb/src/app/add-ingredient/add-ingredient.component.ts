@@ -5,8 +5,7 @@ import { BASE_API_URL } from '../global-variables';
 
 @Component({
   selector: 'app-add-ingredient',
-  templateUrl: './add-ingredient.component.html',
-  styleUrls: ['./add-ingredient.component.css']
+  templateUrl: './add-ingredient.component.html'
 })
 export class AddIngredientComponent implements OnInit {
 
