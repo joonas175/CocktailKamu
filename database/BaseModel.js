@@ -103,6 +103,38 @@ class BaseModel {
 
     }
 
+    async update() {
+        let conn;
+        let hasError;
+        
+        try {
+
+            let obj = this.toQueryFormat();
+
+            let sql = `REPLACE INTO ${this.tableName} `
+            + `(${Object.keys(this.columns).join(', ')})` // columns
+            + ` VALUES (${Object.keys(this.columns).map((key) => obj[key]).join(', ')});` // values
+
+            console.log(sql);
+
+            conn = await this.conn
+
+            const response = await conn.query(sql);
+
+            this.id = response.insertId;
+
+        } catch (error) {
+            console.log(error);
+            hasError = error;
+        }
+
+        if(conn != null) conn.end();
+        
+        if(hasError !== null && hasError !== undefined) throw hasError;
+
+        return this.sanitized();
+    }
+
     static async get(params) {
 
         let hasError;
