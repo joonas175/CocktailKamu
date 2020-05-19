@@ -1,2 +1,30 @@
-<p>single-recipe works!</p>
-{{drink | json}}
+<div class="container">
+    <div *ngIf="drink.description !== ''" class="row">
+        <div class="col-sm" style="border: 1px solid lightgray; border-radius: 5px; margin: 15px;">
+            <h6>Description</h6>
+            <p class="lead">{{drink.description}}</p>
+        </div>
+    </div>
+    <div class="row" style="text-align: start;">
+        <!-- Ingredients -->
+        <div class="col-sm-6">
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let ingredient of drink.ingredients">
+                    <div class="row">
+                        <div class="col-8">{{ingredient.name}}</div>
+                        <div class="col-4">{{ingredient.amount}} {{ingredient.amount_unit}}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- Steps -->
+        <div class="col-sm-6" style="padding-top: 10px;">
+            <p class="lead" style="text-align: center;">Steps</p>
+            <ul>
+                <li *ngFor="let step of drink.steps">
+                    {{step.description}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
