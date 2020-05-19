@@ -29,7 +29,8 @@ export class SingleRecipeComponent implements OnInit {
         });
 
       this.http.get<any>(`${BASE_API_URL}/vote/${id}`).subscribe((resp) => {
-        this.currentRating = resp.avgvote;
+        console.log(resp);
+        this.currentRating = resp.avgvote ? resp.avgvote : 0;
         if (this.auth.authObj.value !== null && this.auth.authObj.value !== undefined) {
           this.allowVote = true;
         }
@@ -38,7 +39,7 @@ export class SingleRecipeComponent implements OnInit {
   }
 
   rateChange(value: any): void {
-    if (this.allowVote) {
+    if (this.allowVote && value > 0 && value <= 5) {
       this.http.put(`${BASE_API_URL}/vote/${this.drink.id}`, null, {params: new HttpParams().set('vote', value)}).subscribe((resp) => {
         console.log(resp);
       });
