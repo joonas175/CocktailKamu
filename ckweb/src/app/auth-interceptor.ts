@@ -6,6 +6,9 @@ import { UserService } from './user-service.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './auth.service';
 
+/**
+ * Add authorization header to every request.
+ */
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 

@@ -1,4 +1,7 @@
 
+/**
+ * Represents a cocktail
+ */
 export interface Drink {
     id: string;
     name: string;

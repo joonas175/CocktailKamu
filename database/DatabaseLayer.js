@@ -1,4 +1,8 @@
 
+/**
+ * Handle database connection
+ */
+
 const mariadb = require('mariadb');
 const pool = mariadb.createPool({
      host: 'localhost', 

@@ -6,6 +6,11 @@ import { BASE_API_URL } from '../global-variables';
 import { UserService } from '../user-service.service';
 import { AuthService, AuthObj } from '../auth.service';
 
+/**
+ * Component to handle login when redirecting back from Google.
+ * Sends OAuth code to backend, which exchanges it to tokens and
+ * returns to this client. Auth object is saved to web storage.
+ */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'

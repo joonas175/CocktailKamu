@@ -2,7 +2,9 @@
 const { BaseModel } = require('../database/BaseModel');
 const { Types } = require('../database/DatabaseTypes');
 
-
+/**
+ * Recipe to ingredient mapping entity
+ */
 class RecipeIngredient extends BaseModel {
 
     static get columns () { 
@@ -20,7 +22,7 @@ class RecipeIngredient extends BaseModel {
         return 'r_ingredient'
     }
 
-    static nativeQueryGetByRecipeIdWithInnerJoin(id) { // Longest function name ever :D
+    static nativeQueryGetByRecipeIdWithInnerJoin(id) {
         let sql = `SELECT ingredient.name, r_ingredient.amount, r_ingredient.amount_unit
         FROM r_ingredient
         INNER JOIN ingredient

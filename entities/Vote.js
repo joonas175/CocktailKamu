@@ -2,7 +2,9 @@
 const { BaseModel } = require('../database/BaseModel');
 const { Types } = require('../database/DatabaseTypes');
 
-
+/**
+ * Vote for a recipe
+ */
 class Vote extends BaseModel {
 
     static get columns () { 
@@ -18,6 +20,10 @@ class Vote extends BaseModel {
         return 'r_vote'
     }
     
+    /**
+     * Calculate average of votes per recipe_id
+     * @param {*} id 
+     */
     static nativeQueryGetAvgByRecipeId(id) {
         let sql = `SELECT AVG(vote) AS avgvote
         FROM ${this.tableName}

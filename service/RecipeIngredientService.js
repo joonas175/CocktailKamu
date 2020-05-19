@@ -1,7 +1,15 @@
 const { RecipeIngredient } = require('../entities/RecipeIngredient');
 
+/**
+ * Service for handling RecipeIngredient entities
+ */
 class RecipeIngredientService {
 
+    /**
+     * Insert multiple recipe ingredients to database. Needs recipe id!
+     * @param {*} ingredients 
+     * @param {*} recipeId 
+     */
     static async insertRecipeIngredients(ingredients, recipeId) {
 
         let resp = [];
@@ -27,6 +35,10 @@ class RecipeIngredientService {
         return resp;
     }
 
+    /**
+     * Fetch recipe ingredients by recipe id, joining them with ingredients for full details
+     * @param {*} id 
+     */
     static async getIngredientsByReceiptID(id) {
 
         const resp = await RecipeIngredient.nativeQueryGetByRecipeIdWithInnerJoin(id);

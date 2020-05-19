@@ -44,3 +44,7 @@ Backend breaks with Node 13.x, use Node 14.x!
   - Alternative for native queries?
 
 - Error handling!
+
+- Contribution only available to logged in users
+
+- Only show verified recipes and ingredients!

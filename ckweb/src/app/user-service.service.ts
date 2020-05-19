@@ -6,6 +6,10 @@ import { Drink } from './entities/Drink';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 
+/**
+ * Handles user related data (no authorization related), which in this case
+ * means owned ingredients and available drinks.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -16,16 +20,21 @@ export class UserService {
   availableDrinks: BehaviorSubject<Drink[]> = new BehaviorSubject<Drink[]>([]);
 
   constructor(private http: HttpClient, @Inject(LOCAL_STORAGE) private storage: StorageService) {
+    // When users ingredients change, update available drinks
     this.ingredients.subscribe((value) => {
       this.updateAvailableDrinks(value);
     });
-
+    // Get saved ingredients
     const ingredients = storage.get('ck-saved-ingredients');
     if (ingredients) {
       this.ingredients.next(ingredients);
     }
   }
 
+  /**
+   * Add ingredient, and save ingredients to web storage
+   * @param ingredient ingredient
+   */
   addIngredient(ingredient: Ingredient): void {
 
     const newIngredients = this.ingredients.getValue();
@@ -34,6 +43,10 @@ export class UserService {
     this.storage.set('ck-saved-ingredients', newIngredients);
   }
 
+  /**
+   * Remove ingredient from owned ingredients
+   * @param index index of item to remove
+   */
   removeIngredient(index: number): void {
     const newIngredients = this.ingredients.getValue();
     newIngredients.splice(index, 1);
@@ -41,6 +54,10 @@ export class UserService {
     this.storage.set('ck-saved-ingredients', newIngredients);
   }
 
+  /**
+   * Update available drinks from backend
+   * @param ingredients Ingredients owned
+   */
   updateAvailableDrinks(ingredients: Ingredient[]): void {
     if (ingredients.length === 0) {
       this.availableDrinks.next([]);

@@ -1,6 +1,9 @@
 const { Ingredient } = require('../entities/Ingredient');
 const { BaseService } = require('./BaseService');
 
+/**
+ * Service for handling Ingredient entities
+ */
 class IngredientService extends BaseService {
 
     static get staticType () {
@@ -35,22 +38,6 @@ class IngredientService extends BaseService {
 
         return resp;
     }
-
-    /*
-    static async searchIngredients(terms) {
-
-        const params = {
-            where: Object.keys(terms).filter((key) => (key != 'page' && key != 'limit')).map((key) => `(${key} LIKE '%${terms[key]}%')`).join(' AND ')
-        };
-
-        params.page = terms.page ? terms.page : 1;
-        params.limit = terms.limit ? terms.limit : 10;
-        
-        const resp = await Ingredient.get(params);
-
-        return resp;
-    }
-    */
 
 }
 

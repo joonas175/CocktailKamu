@@ -2,7 +2,9 @@
 const { BaseModel } = require('../database/BaseModel');
 const { Types } = require('../database/DatabaseTypes');
 
-
+/**
+ * Cocktail ingredient entity
+ */
 class Ingredient extends BaseModel {
 
     static get columns () { 

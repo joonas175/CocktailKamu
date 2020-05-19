@@ -2,7 +2,9 @@
 const { BaseModel } = require('../database/BaseModel');
 const { Types } = require('../database/DatabaseTypes');
 
-
+/**
+ * Recipe to step mapping entity
+ */
 class RecipeStep extends BaseModel {
 
     static get columns () { 

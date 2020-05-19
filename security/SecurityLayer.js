@@ -1,6 +1,9 @@
 const axios = require('axios').default
 const { getOAuthClient } = require('./oauth2Client')
 
+/**
+ * Middleware for checking user authentication
+ */
 class SecurityLayer {
 
     static setSecurityLayer(controller) {

@@ -2,7 +2,9 @@
 const { BaseModel } = require('../database/BaseModel');
 const { Types } = require('../database/DatabaseTypes');
 
-
+/**
+ * Cocktail / drink recipe
+ */
 class Recipe extends BaseModel {
 
     static get columns () { 
@@ -17,6 +19,13 @@ class Recipe extends BaseModel {
         return 'recipe'
     }
 
+    /**
+     * Select recipes, which select recipes from database which include an ingredient from the given array.
+     * Counts total amount of ingredients per recipe, as well as owned ingredients per recipe.
+     * This clause is long as shit, but hey, it works. 
+     * Tbh maybe several queries could have been better :D
+     * @param {*} idArray ingredient id's
+     */
     static nativeQueryGetByRecipesByIngredientIDs(idArray) { // Longest function name ever :D
         let sql = `SELECT DISTINCT id, name, description, verified, totalIngredients, ownedIngredients
         FROM recipe

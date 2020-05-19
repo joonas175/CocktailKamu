@@ -3,15 +3,22 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+
+// For jQuery hack
 declare var $: any;
+
+/**
+ * Main component. Includes nav bar and router outlet and nothing else. Simple as that.
+ */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
 
-  title = 'ckweb';
+  title = 'Cocktail Kamu';
 
+  // Tells if the user is logged in or not. Used to display logout / login correctly
   loggedIn = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private auth: AuthService, private http: HttpClient) {
@@ -47,6 +54,10 @@ export class AppComponent implements OnInit {
     });
   }
 
+  /**
+   * Url to redirect to when user wants to login.
+   * @todo client_id from environment
+   */
   loginUrl(): string {
     return 'https://accounts.google.com/o/oauth2/v2/auth?' +
       'response_type=code&' +
@@ -57,6 +68,11 @@ export class AppComponent implements OnInit {
       'access_type=offline';
   }
 
+  /**
+   * Remove auth obj from web storage. Should also revoke refresh token, but haven't figured out how.
+   * @todo @todo Revoke refresh token
+   * @param event mouse event
+   */
   logout(event: MouseEvent): void {
     event.preventDefault();
     this.auth.saveAuthObj(null);

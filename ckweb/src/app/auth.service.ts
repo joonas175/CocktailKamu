@@ -7,7 +7,10 @@ import { Drink } from './entities/Drink';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 
-
+/**
+ * Service to handle authorization.
+ * Saves and retrieves authorization object.
+ */
 @Injectable({
   providedIn: 'root'
 })

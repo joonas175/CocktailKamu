@@ -1,7 +1,15 @@
 const { RecipeStep } = require('../entities/RecipeStep');
 
+/**
+ * Service for handling RecipeStep entities
+ */
 class RecipeStepService {
 
+    /**
+     * Insert multiple recipe steps into database. Recipe id is required!
+     * @param {*} steps 
+     * @param {*} recipeId 
+     */
     static async insertRecipeSteps(steps, recipeId) {
 
         let resp = [];
@@ -16,11 +24,6 @@ class RecipeStepService {
        
     }
 
-    static async getRecipeStepsById() {
-
-       
-    }
-
     static async getStepsByIDs(idArray) {
 
         const params = {
@@ -32,6 +35,10 @@ class RecipeStepService {
         return resp;
     }
 
+    /**
+     * Get recipe steps by recipe id
+     * @param {*} id 
+     */
     static async getStepsByReceiptID(id) {
 
         const params = {

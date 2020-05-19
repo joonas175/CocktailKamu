@@ -22,7 +22,10 @@ export class AddIngredientComponent implements OnInit {
   }
 
   onClick(): void {
-    console.log(this.ingredientForm.value);
+    /**
+     * On submit, send values from form to backend.
+     * Reset fields, so user can submit new ingredient right after.
+     */
     this.http.put(`${BASE_API_URL}/ingredient/`, this.ingredientForm.value).subscribe((value) => {
       console.log(value);
       this.ingredientForm.setValue({name: '', description: ''});

@@ -1,4 +1,6 @@
-
+/**
+ * Types for columns
+ */
 const Types = {
     
     string: "string",

@@ -3,12 +3,20 @@ const { RecipeStepService } = require('./RecipeStepService');
 const { RecipeIngredientService } = require('./RecipeIngredientService');
 const { BaseService } = require('./BaseService');
 
+/**
+ * Service for handling Recipe entities
+ */
 class RecipeService extends BaseService {
 
     static get staticType () {
         return Recipe;
     }
 
+    /**
+     * Insert a single recipe into database, with steps and ingredients.
+     * Throws an error, if no steps or ingredients are present.
+     * @param {*} props 
+     */
     static async insertRecipe(props) {
 
         const recipe = new Recipe(props);
@@ -30,6 +38,9 @@ class RecipeService extends BaseService {
 
     }
 
+    /**
+     * Return all recipes
+     */
     static async getRecipes() {
 
         const resp = await Recipe.get();
@@ -37,6 +48,10 @@ class RecipeService extends BaseService {
         return resp;
     }
 
+    /**
+     * Get full recipe, including steps and ingredients, by recipe id
+     * @param {*} id 
+     */
     static async getFullRecipeByID(id) {
 
         const resp = (await Recipe.get({where: `ID = ${id}`}))[0];
@@ -49,6 +64,10 @@ class RecipeService extends BaseService {
 
     }
 
+    /**
+     * Use native query to fetch all recipes, which include given ingredients
+     * @param {*} idArray 
+     */
     static async getRecipesByIngredientIDs(idArray) {
 
         const recipes = await Recipe.nativeQueryGetByRecipesByIngredientIDs(idArray);

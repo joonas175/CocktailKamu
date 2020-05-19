@@ -1,6 +1,12 @@
 let { dbPool } = require('./DatabaseLayer');
 const { Types } = require('./DatabaseTypes');
 
+/**
+ * Base model for all database objects.
+ * Includes a lot of convenience methods.
+ * I tried to make this code as reusable as possible, but
+ * I still had to do a lot of native queries in service layer.
+ */
 class BaseModel {
 
     constructor(props){
@@ -10,18 +16,36 @@ class BaseModel {
         this.tableName = this.constructor.tableName;
     }
 
+    /**
+     * Columns and types of the object
+     */
     static get columns () {
         throw "No columns specified!"
     }
 
+    /**
+     * Default connection for database.
+     * Can be overridden.
+     */
     static get conn () {
         return dbPool.getConnection()
     }
 
+    /**
+     * Table for this entity
+     */
     static get tableName() {
         throw "No table name specified"
     }
 
+    /**
+     * Transforms object to a format which can be easily joined in an SQL query.
+     * Add '' to string. Check validity of numbers. Purges object from values
+     * not defined in columns.
+     * 
+     * @param {*} obj object to format
+     * @param {*} columns  columns of the object
+     */
     static _toQueryFormat(obj, columns) {
         let newObj = {};
         for(let key of Object.keys(columns)) {
@@ -54,11 +78,16 @@ class BaseModel {
         return newObj;
     }
 
-
+    /**
+     * Call _toQueryFormat for this object
+     */
     toQueryFormat() {
         return BaseModel._toQueryFormat(this, this.columns);
     }
 
+    /**
+     * Return object with properties defined in columns only
+     */
     sanitized() {
         let newObj = {};
         for(let key of Object.keys(this.columns)){
@@ -69,6 +98,11 @@ class BaseModel {
         return newObj;
     }
 
+    /**
+     * Insert a new object into database.
+     * All tables have id as primary key, so trying to modify
+     * old value will throw an error.
+     */
     async insert() {
 
         let conn;
@@ -103,6 +137,10 @@ class BaseModel {
 
     }
 
+    /**
+     * Same as insert, except allows modifying.
+     * @todo use same function for update and insert
+     */
     async update() {
         let conn;
         let hasError;
@@ -135,6 +173,14 @@ class BaseModel {
         return this.sanitized();
     }
 
+    /**
+     * Get objects from database.
+     * Params can include where, order, limit and page clauses as plain strings.
+     * 
+     * @todo clause builder in this class
+     * 
+     * @param {*} params 
+     */
     static async get(params) {
 
         let hasError;
@@ -167,6 +213,10 @@ class BaseModel {
 
     }
 
+    /**
+     * Native sql query
+     * @param {*} sql query string as sql
+     */
     static async nativeQuery(sql) {
         let hasError;
         let resp;

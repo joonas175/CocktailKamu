@@ -31,6 +31,8 @@ const allowedExt = [
 
 /**
  * Initialize controllers here
+ * Include all controllers in controller folder.
+ * @todo error checking?
  */
 var normalizedPath = path.join(__dirname, "controller");
 
@@ -50,7 +52,7 @@ fs.readdirSync(normalizedPath).forEach((file) => {
 });
 
 /**
- * Serve index for all calls except api calls
+ * Serve index for all calls except api calls and allowed binary files
  */
 app.get('*', (req, res) => {
     if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) {
@@ -62,5 +64,9 @@ app.get('*', (req, res) => {
 
 
 const server = app.listen(port, (args) => console.log("Listening on port: " + port));
+
+/**
+ * Print out Google client_id and client_secret for debug purposes
+ */
 console.log("client id " + process.env.CLIENT_ID);
 console.log("client secret " + process.env.CLIENT_SECRET);
