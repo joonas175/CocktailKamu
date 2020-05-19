@@ -17,7 +17,7 @@ Backend breaks with Node 13.x, use Node 14.x!
 
 3. Run yarn install / npm install in root folder and in ckweb folder
 
-4. (YARN) run ````yarn build-web``` in root folder (builds frontend for production)
+4. (YARN) run ```yarn build-web``` in root folder (builds frontend for production)
 
 5. (NPM) cd to ckweb and run ```npm run ng build --prod --base-href /```. If not working I suggest installing yarn.
 
