@@ -8,7 +8,7 @@ class BaseService {
     static async searchByTerms(terms) {
 
 
-        let operator = (terms['operator'] !== null || terms['operator'].toUpperCase() === 'OR') ? ' OR ' : ' AND '
+        let operator = (terms['operator'] && terms['operator'].toUpperCase() === 'OR') ? ' OR ' : ' AND '
 
         const params = {
             where: Object.keys(terms)
