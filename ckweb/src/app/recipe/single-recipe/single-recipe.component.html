@@ -25,7 +25,7 @@
                   <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
                 </span>
             </ng-template>
-            <ngb-rating [rate]="currentRating" [starTemplate]="t" [max]="5" (rateChange)="rateChange"></ngb-rating>
+            <ngb-rating [rate]="currentRating" [starTemplate]="t" [max]="5" (rateChange)="rateChange($event)" [readonly]="!allowVote"></ngb-rating>
             <p class="lead">{{drink.description}}</p>
         </div>
     </div>

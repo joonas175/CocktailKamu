@@ -14,7 +14,8 @@ export class SingleRecipeComponent implements OnInit {
 
   drink: Drink = null;
 
-  currentRating: number = null;
+  currentRating = 0;
+  allowVote = true;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {
   }
@@ -29,7 +30,10 @@ export class SingleRecipeComponent implements OnInit {
   }
 
   rateChange(value: any): void {
-    console.log(value);
+    if (this.allowVote) {
+      console.log(value);
+    }
+
   }
 
 }
