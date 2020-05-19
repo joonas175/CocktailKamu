@@ -23,10 +23,12 @@ Backend breaks with Node 13.x, use Node 14.x!
 
 6. ```yarn start``` or ```npm start``` in root folder
 
-7. If you want to enable login, follow these steps:
+7. Url for site is http://localhost:8081/ if using default settings
+
+8. If you want to enable login, follow these steps:
   - https://console.developers.google.com/
   - Create new project, create OAuth credentials on Credentials tab
-  - Redirect uri should end with /login
+  - Redirect uri should end with /login (on your own computer probably http://localhost:8081/login )
   - Update environment.js with values from your new project
 
 
