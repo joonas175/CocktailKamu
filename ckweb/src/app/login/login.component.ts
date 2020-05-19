@@ -12,6 +12,8 @@ import { AuthService, AuthObj } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  error = false;
+
   constructor(private route: ActivatedRoute, private http: HttpClient, private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -23,6 +25,9 @@ export class LoginComponent implements OnInit {
         console.log(value);
         this.auth.saveAuthObj(value);
         this.router.navigateByUrl(url);
+      }, (error) => {
+        console.log(error);
+        this.error = true;
       });
     });
   }

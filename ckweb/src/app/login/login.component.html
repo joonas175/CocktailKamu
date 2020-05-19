@@ -1,1 +1,9 @@
-<p>login works!</p>
+
+<div class="container" style="padding: 30px; margin: auto; text-align: center;">
+
+    <p *ngIf="!error; else error">Logging in...</p>
+    <ng-template #error>
+        <p>Error logging in!</p>
+    </ng-template>
+
+</div>
