@@ -7,9 +7,10 @@ const controllers = [
         func: async (req, res) => {
 
             try {
-                let ingredient = await VoteService.insertIngredient(req.params.id);
+                let vote = await VoteService.insertVote(req.params.id, req.query.vote, req.userId);
 
-                res.send(ingredient);
+                res.send(vote);
+
             } catch (error) {
                 console.log(error);
                 res.status(500).send({
@@ -18,28 +19,20 @@ const controllers = [
                 })
             }
 
-        }
+        },
+        requiresSignIn: true
     },
     {
         method: 'get',
-        path: '/vote/id',
+        path: '/vote/:id(\\d+)',
         func: async (req, res) => {
-
-            console.log(req.query);
 
             console.log(req.userId);
 
             try {
+                let avg = await VoteService.getAvgById(req.params.id);
 
-                if(Object.keys(req.query).length === 0) {
-                    let ingredients = await IngredientService.getAllIngredients();
-
-                    res.send(ingredients);
-                } else {
-                    let ingredients = await IngredientService.searchByTerms(req.query);
-
-                    res.send(ingredients);
-                }
+                res.send(avg);
                 
             } catch(error) {
                 console.log(error);
@@ -48,8 +41,7 @@ const controllers = [
                     message: "Internal server error"
                 })
             }
-        },
-        requiresSignIn: true
+        }
     }
 ]
 
