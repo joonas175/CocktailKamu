@@ -3,9 +3,9 @@ CREATE TABLE `ingredient` (
 	`description` VARCHAR(500) NULL DEFAULT NULL,
 	`name` VARCHAR(60) NOT NULL,
 	`verified` TINYINT(4) NULL DEFAULT 0,
-	INDEX `Index 1` (`id`)
+	PRIMARY KEY (`id`)
 )
 COLLATE='latin1_swedish_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=21
+AUTO_INCREMENT=36
 ;
